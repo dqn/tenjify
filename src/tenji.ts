@@ -2,8 +2,6 @@ import { createCanvas, loadImage } from "canvas";
 
 const tenjiCols = 2;
 const tenjiRows = 4;
-const aaWidth = 30;
-const threshold = 128;
 
 function numberToTenji(num: number): string {
   let flags = 0;
@@ -14,9 +12,25 @@ function numberToTenji(num: number): string {
   return String.fromCharCode(flags + 0x2800);
 }
 
-export async function tenjify(src: string | Buffer): Promise<string> {
+type TenjifyOptions = {
+  width?: number;
+  threshold?: number;
+  reverse?: boolean;
+};
+
+export async function tenjify(
+  src: string | Buffer,
+  options?: TenjifyOptions,
+): Promise<string> {
+  const { width, threshold, reverse } = {
+    width: 30,
+    threshold: 128,
+    reverse: false,
+    ...options,
+  };
+
   const image = await loadImage(src);
-  const canvasWidth = tenjiCols * aaWidth;
+  const canvasWidth = tenjiCols * width;
   const canvasHeight = Math.round(image.height * (canvasWidth / image.width));
   const canvas = createCanvas(canvasWidth, canvasHeight);
 
@@ -32,8 +46,9 @@ export async function tenjify(src: string | Buffer): Promise<string> {
       for (let dy = 0; dy < tenjiRows && sy + dy < canvasHeight; ++dy) {
         for (let dx = 0; dx < tenjiCols; ++dx) {
           const [r, g, b] = ctx.getImageData(sx + dx, sy + dy, 1, 1).data;
+          const isBelow = (r + g + b) / 3 < threshold;
 
-          if ((r + g + b) / 3 < threshold) {
+          if ((isBelow && !reverse) || (!isBelow && reverse)) {
             let diff = 1;
             diff <<= 4 * dx;
             diff <<= dy;
