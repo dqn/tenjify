@@ -1,5 +1,8 @@
 # tenjify
 
+[![CI](https://github.com/dqn/tenjify/workflows/CI/badge.svg)](https://github.com/dqn/tenjify/actions)
+[![npm version](https://img.shields.io/npm/v/tenjify.svg)](https://www.npmjs.com/package/tenjify)
+
 Convert the image to Braille.
 
 ## Installation
