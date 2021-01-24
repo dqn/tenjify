@@ -1,6 +1,6 @@
 {
   "name": "tenjify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "author": "dqn <dqn270@gmail.com>",
   "license": "MIT",
