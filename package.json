@@ -1,10 +1,12 @@
 {
   "name": "tenjify",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "dqn <dqn270@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "prepare": "yarn build",
     "test": "jest"
   },
   "devDependencies": {
