@@ -1,6 +1,6 @@
 # tenjify
 
-Convert images to Braille.
+Convert the image to Braille.
 
 ## Installation
 
