@@ -46,7 +46,7 @@ export async function tenjify(
       for (let dy = 0; dy < tenjiRows && sy + dy < canvasHeight; ++dy) {
         for (let dx = 0; dx < tenjiCols; ++dx) {
           const [r, g, b] = ctx.getImageData(sx + dx, sy + dy, 1, 1).data;
-          const isBelow = (r + g + b) / 3 < threshold;
+          const isBelow = ((r ?? 0) + (g ?? 0) + (b ?? 0)) / 3 < threshold;
 
           if ((isBelow && !reverse) || (!isBelow && reverse)) {
             let diff = 1;
